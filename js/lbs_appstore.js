@@ -334,7 +334,7 @@ var appFactory = function (app, currentpage) {
     };
     self.download = function () {
         if (self.license()) {
-            location.href = 'http://api.lime-bootstrap.com/apps/' + self.name() + '/download'
+            location.href = 'https://api.lime-bootstrap.com/apps/' + self.name() + '/download'
         }
         else{
             $(".download-without-password").hide();
@@ -354,7 +354,7 @@ var appFactory = function (app, currentpage) {
         if (self.password()!="") {
             if(self.password() ==="LLAB"){
                 console.log("downloaing app");
-                location.href = 'http://api.lime-bootstrap.com/apps/' + self.name() + '/download'
+                location.href = 'https://api.lime-bootstrap.com/apps/' + self.name() + '/download'
                 self.password('');
                 self.wrongpassword(false);
             }
