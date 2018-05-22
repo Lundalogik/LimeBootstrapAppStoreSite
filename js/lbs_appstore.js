@@ -283,8 +283,8 @@ var appFactory = function (app, currentpage) {
 
     //})
     if (self.smallImage === "") {
-        self.bigImage = ["http://limebootstrap.lundalogik.com/web/appstore/img/_default.png"];
-        self.smallImage = ["http://limebootstrap.lundalogik.com/web/appstore/img/_default.png"];
+        self.bigImage = ["img/_default.png"];
+        self.smallImage = ["img/_default.png"];
     }
 
     self.changeAppInfo = function (app, item) {
