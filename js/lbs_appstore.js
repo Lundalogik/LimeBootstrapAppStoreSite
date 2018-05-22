@@ -1,6 +1,6 @@
 var lbsappstore = {
     init: function () {
-        $.getJSON('http://api.lime-bootstrap.com/apps?page=1', function (data) {
+        $.getJSON('https://api.lime-bootstrap.com/apps?page=1', function (data) {
             var vm = new viewModel();
             vm.populateFromRawData(data)
             vm.pages = ko.observableArray();
@@ -10,7 +10,7 @@ var lbsappstore = {
             }
             vm.setActiveApp();
             vm.setInitalFilter();
-            
+
             ko.applyBindings(vm);
             $('pre code').each(function (i, e) { hljs.highlightBlock(e) });
         });
@@ -42,9 +42,9 @@ var viewModel = function () {
         if (self.loadedpages.indexOf(pagenumber) == -1){
             //$.getJSON('http://api.lime-bootstrap.com/apps?page=' + pagenumber, function (data) {
             //    self.populateFromRawData(data);
-            //});            
+            //});
                 $.ajax({
-                    url: 'http://api.lime-bootstrap.com/apps?page=' + pagenumber,
+                    url: 'https://api.lime-bootstrap.com/apps?page=' + pagenumber,
                     type: 'get',
                     dataType: 'json',
                     cache: true,
@@ -53,13 +53,13 @@ var viewModel = function () {
                         self.populateFromRawData(data)
                     },
                     error: function () {
-                        console.log("något sket sig");
+                        console.log("nï¿½got sket sig");
                     }
-                    
-                });            
-            self.loadedpages.push(pagenumber);    
+
+                });
+            self.loadedpages.push(pagenumber);
         }
-        
+
     }
     // utility for converting to grid
     self.listToMatrix = function (list, elementsPerSubArray) {
@@ -75,9 +75,9 @@ var viewModel = function () {
     }
 
     // populate VM from JSON data
-    self.populateFromRawData = function (rawData) {        
-        var currentpage = rawData._self._current_page; 
-        
+    self.populateFromRawData = function (rawData) {
+        var currentpage = rawData._self._current_page;
+
         $(rawData.apps).each(function (index, app) {
             if (app.name) {
                 self.apps.push(new appFactory(app, currentpage))
@@ -128,7 +128,7 @@ var viewModel = function () {
                     }
                 }
             }
-            
+
         });
 
         // sort
@@ -262,7 +262,7 @@ var appFactory = function (app, currentpage) {
     //$.each(self.images, function (index, image) {
 
         $.each(app.images, function (imageindex, imagedata) {
-            
+
             //if (image == imagedata.file_name) {
             if (imagedata.file_name.indexOf("small") > -1) {
                 self.smallImage = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
@@ -330,7 +330,7 @@ var appFactory = function (app, currentpage) {
         $("#expanded-" + app.name()).modal('hide');
         $(".download-without-password").show();
         $(".download-with-password").hide();
-        
+
     };
     self.download = function () {
         if (self.license()) {
@@ -339,7 +339,7 @@ var appFactory = function (app, currentpage) {
         else{
             $(".download-without-password").hide();
             $(".download-with-password").fadeIn();
-            $("#passwordinput").focus();  
+            $("#passwordinput").focus();
             self.wrongpassword(false);
         }
     };
