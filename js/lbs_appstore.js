@@ -283,8 +283,8 @@ var appFactory = function (app, currentpage) {
 
     //})
     if (self.smallImage === "") {
-        self.bigImage = ["img/_default.png"];
-        self.smallImage = ["img/_default.png"];
+        self.bigImage = ["img/default.png"];
+        self.smallImage = ["img/default.png"];
     }
 
     self.changeAppInfo = function (app, item) {
