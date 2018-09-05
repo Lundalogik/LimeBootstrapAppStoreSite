@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lime Bootstrap Appstore</title>
+    <title>Lime Store</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -9,8 +9,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="css/monokai_sublime.css" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="icon" href="img/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/html" id="apps-template">
         <h3 id="filter-text-appstore" data-bind="text: activeFilter().text"></h3>
         <!-- ko foreach: { data: appsGrid, as: 'approw' } -->
@@ -25,9 +24,8 @@
                     <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-' + app.name()}">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                            <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.smallImage + ') no-repeat center'}" ></div>
+                            <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.smallImage + ') no-repeat center'}" ></div>                                          
                         </div>
-
                     </div>
                     <h3 data-bind="text: app.appName"></h3>
                     <!-- ko if: app.info -->
@@ -46,17 +44,17 @@
                                 <h4 class="modal-title">
                                     <span data-bind="text:app.appName()"></span>
                                     <span class="download-without-password">
-                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, css:{disabled:(app.license()?true:false)},  visible: !app.runswithlip()">
+                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, css:{disabled:(app.license()?true:false)},  visible: !app.runswithlip()">                                        
                                             <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: (app.license()? 'Paid': 'Download')"></span>
                                         </button>
-
+                                        
                                         <button type="button" class="btn btn-success pull-right download" data-bind="click:app.installappwithlip, visible:  app.runswithlip()">
                                             <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: 'Install'"></span>
                                         </button>
-
-                                        <button type="button" class="btn btn-default pull-right download" data-bind="click:app.githubAddress">
+                                        
+                                        <button type="button" class="btn btn-default pull-right download" data-bind="click:app.githubAddress ">
                                             <span class="glyphicon glyphicon-cog"></span>
                                             Report problem or look at source
                                         </button>
@@ -65,21 +63,19 @@
                                 </h4>
                                 <span class="download-with-password">
                                     <div class="input-group">
-                                      <input id="passwordinput" class="form-control" type="password" data-bind="value:app.password, valueUpdate:'afterkeydown', attr:{ placeholder: (app.wrongpassword()? 'Wrong password':'Password')}">
+                                      <input id="passwordinput" class="form-control" type="password" data-bind="value:app.password, valueUpdate:'afterkeydown', event{keypress: enterSearch}, attr:{ placeholder: (app.wrongpassword()? 'Wrong password':'Password')}">
                                       <span class="input-group-addon" data-bind="text:'Download', click: app.downloadApp"></span>
-                                    </div>
+                                    </div>  
                                 </span>
                             </div>
                             <div class="modal-body">
-
+                            
                                 <div class="license-app" data-bind="visible:app.license(), icon:'glyphicon-flag'">This app requires a license. Are you intrested in this application, <a href="http://www.lundalogik.com/about-us/contact-us/find-us/">please contact us!</a></div>
                                 <!-- App images-->
                                 <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-large' + app.name()}">
                                     <!-- Wrapper for slides -->
-                                    <div class="carousel-inner">
-
+                                    <div class="carousel-inner">                                        
                                         <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.bigImage +') no-repeat center'}" ></div>
-
                                     </div>
                                 </div>
                                 <br />
@@ -96,17 +92,9 @@
                 </div>
                 <!-- /.modal -->
                 <!-- /Expanded app view -->
-
-
-
-
-
-
-
             </div>
             <!-- /ko -->
             <!-- /ko -->
-
         </div>
         <!-- /ko -->
     </script>
@@ -118,30 +106,24 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="https://lime-bootstrap.com"><span class="glyphicon glyphicon-home"></span> Lime Bootstrap<img class="crmlogo" src="img/lime_crm_logotype_icon_empty_RGB.png" /></a>
+                    <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> Lime Bootstrap<img class="crmlogo" src="../assets/img/lime_crm_logotype_icon_empty_RGB.png" /></a>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li data-bind="visible:mergeMenu()" role="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu" data-bind="foreach: avaliableStatuses">
-                                <!-- ko if: text != 'All' && text != 'New'-->
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-bind="text:text, click: $parent.selectStatusFilter"></a></li>
-                                <!-- /ko -->
-                            </ul>
-                        </li>
+                <div class="navbar-collapse collapse">                    
+                    <ul class="nav navbar-nav navbar-right">                                                
                         <li data-bind="visible:mergeMenu,foreach: avaliableStatuses">
                             <!-- ko if: text == 'All' -->
                             <a class="" id="A1" data-bind="click: $parent.selectStatusFilter">Show all</a>
                             <!-- /ko -->
                         </li>
                         <li data-bind="visible:mergeMenu, foreach: avaliableStatuses">
-                            <!-- ko if: text == 'New' -->
-                            <a id="A2" data-bind="click: $parent.selectStatusFilter">New releases</a>
+                            <!-- ko if: text == 'Latest' -->
+                            <a id="A2" data-bind="click: $parent.selectStatusFilter">Latest releases</a>
                             <!-- /ko -->
                         </li>
-
+                        
+                        <li><a href="http://docs.lime-bootstrap.com">Lime Bootstrap Manual</a></li>
+                        <li><a href="../tutorial/" target="_blank" >Lime Bootstrap Tutorial</a></li>
+                        <li><a href="/">Lime Store</a></li>
                         <li data-bind="visible:mergeMenu()"> <div class="input-group menu-appstore-input-group">
                                 <input type="text" class="form-control navbar-appstore-input" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
                                 <span class="input-group-btn">
@@ -159,7 +141,7 @@
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Appstore</h1>
+                <h1>Lime Store</h1>
             </div>
         </div>
     </header>
@@ -169,24 +151,15 @@
 
                 <div class="row">
                     <!-- <div class="col-md-12" style="background-color:green">   -->
-                    <ul class="nav nav-tabs nav-appstore">
-                        <li role="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu" data-bind="foreach: avaliableStatuses">
-                                <!-- ko if: text != 'All' && text != 'New'-->
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-bind="text:text, click: $parent.selectStatusFilter"></a></li>
-                                <!-- /ko -->
-                            </ul>
-                        </li>
-
+                    <ul class="nav nav-tabs nav-appstore">                       
                         <li role="presentation" data-bind="foreach: avaliableStatuses">
                             <!-- ko if: text == 'All' -->
                             <a class="active-appstore" id="All" data-bind="click: $parent.selectStatusFilter">Show all</a>
                             <!-- /ko -->
                         </li>
                         <li role="presentation" data-bind="foreach: avaliableStatuses">
-                            <!-- ko if: text == 'New' -->
-                            <a id="New" data-bind="click: $parent.selectStatusFilter">New releases</a>
+                            <!-- ko if: text == 'Latest' -->
+                            <a id="New" data-bind="click: $parent.selectStatusFilter">Latest releases</a>
                             <!-- /ko -->
                         </li>
                         <li role="presentation" id="navbar-appstore-searchbar">
@@ -216,8 +189,10 @@
 
     <!-- PAGING -->
     <div class="pagegroup" data-bind="visible: activeFilter().text === 'All'">
+    <!-- ko if: pages().length > 1 -->
     <!-- ko foreach:{ data:pages, as: 'page'} -->
-        <button class="" data-bind="text: page.pagenumber, click: page.nextpage, attr:{'class':($root.activepage() === pagenumber ? 'btn btn-success':'btn btn-default') } "></button>
+        <button class="" data-bind="text: page.pagenumber, click: page.nextpage, visible: page.showButton, attr:{'class':($root.activepage() === pagenumber ? 'btn btn-success':'btn btn-default') } "></button>
+    <!-- /ko -->
     <!-- /ko -->
     </div>
 
@@ -226,8 +201,7 @@
             <div class="col-md-12">
                 <div class="appstore-footer">
                     <ul class="appstore-footer-list">
-                        <li><a href="#">&copy;2018 Lime Technologies AB</a></li>
-                        <li><a href="/">About Lime Bootstrap</a></li>
+                        <li><a href="#">&copy;2018 Lime Technologies AB</a></li>                        
                     </ul>
                 </div>
             </div>
