@@ -1,6 +1,6 @@
 var lbsappstore = {
     init: function () {        
-        $.getJSON('http://api.lime-bootstrap.com/addons?page=1', function (data) {
+        $.getJSON('https://api.lime-bootstrap.com/addons?page=1', function (data) {
         // LJE TEST
         //$.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {
         
@@ -44,7 +44,7 @@ var viewModel = function () {
     self.loadMoreData = function(pagenumber){
         if (self.loadedpages.indexOf(pagenumber) == -1){
                 $.ajax({
-                    url: 'http://api.lime-bootstrap.com/addons?page=' + pagenumber,
+                    url: 'https://api.lime-bootstrap.com/addons?page=' + pagenumber,
                     //LJE Test
                     //url: 'http://127.0.0.1:5000/apps?page=' + pagenumber,
                     type: 'get',
@@ -327,7 +327,7 @@ var appFactory = function (app, currentpage) {
 
     self.download = function () {
         if (self.license()) {            
-            location.href = 'http://api.lime-bootstrap.com/addons/' + self.name() + '/download'
+            location.href = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
             // LJE TEST
             //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
 
@@ -349,7 +349,7 @@ var appFactory = function (app, currentpage) {
     self.downloadApp = function () {
         if (self.password()!="") {
             $.ajax({                
-                url: 'http://api.lime-bootstrap.com/login' ,
+                url: 'https://api.lime-bootstrap.com/login' ,
                 //LJE TEST
                 //url: 'http://127.0.0.1:5000/login' ,
                 type: 'post',
@@ -359,7 +359,7 @@ var appFactory = function (app, currentpage) {
                 async: false,
                 success: function(response){
                     if(response=='200'){                        
-                        location.href = 'http://api.lime-bootstrap.com/addons/' + self.displayName() + '/download';    
+                        location.href = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download';    
                         //LJE TEST
                         //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download';
                
