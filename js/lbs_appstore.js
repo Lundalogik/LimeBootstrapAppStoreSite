@@ -361,7 +361,7 @@ var appFactory = function (app, currentpage) {
                     if(response=='200'){                        
                         location.href = 'http://api.lime-bootstrap.com/addons/' + self.displayName() + '/download';    
                         //LJE TEST
-                        location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download';
+                        //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download';
                
                         self.password('');
                         self.wrongpassword(false);
