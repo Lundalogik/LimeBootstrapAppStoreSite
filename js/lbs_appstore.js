@@ -2,8 +2,7 @@ var lbsappstore = {
     init: function () {        
         $.getJSON('https://api.lime-bootstrap.com/addons?page=1', function (data) {
         // LJE TEST
-        //$.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {
-        
+        //$.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {        
             var vm = new viewModel();
             vm.populateFromRawData(data)
             vm.pages = ko.observableArray();
