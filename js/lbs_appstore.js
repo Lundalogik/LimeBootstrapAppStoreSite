@@ -43,7 +43,7 @@ var viewModel = function () {
     self.loadMoreData = function(pagenumber){
         if (self.loadedpages.indexOf(pagenumber) == -1){
                 $.ajax({
-                    url: 'https://api.lime-bootstrap.com/addons?page=' + pagenumber,
+                    url: 'https://api.lime-bootstrap.com/addons/?page=' + pagenumber,
                     //LJE Test
                     //url: 'http://127.0.0.1:5000/apps?page=' + pagenumber,
                     type: 'get',
