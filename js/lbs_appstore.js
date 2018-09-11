@@ -1,8 +1,8 @@
 var lbsappstore = {
-    init: function () {
+    init: function () {        
+        $.getJSON('http://api.lime-bootstrap.com/addons?page=1', function (data) {
         // LJE TEST
-        // $.getJSON('http://api.lime-bootstrap.com/apps?page=1', function (data) {
-        $.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {
+        //$.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {
         
             var vm = new viewModel();
             vm.populateFromRawData(data)
@@ -43,12 +43,10 @@ var viewModel = function () {
 
     self.loadMoreData = function(pagenumber){
         if (self.loadedpages.indexOf(pagenumber) == -1){
-            //$.getJSON('http://api.lime-bootstrap.com/apps?page=' + pagenumber, function (data) {
-            //    self.populateFromRawData(data);
-            //});            
                 $.ajax({
-                    //url: 'http://api.lime-bootstrap.com/apps?page=' + pagenumber,
-                    url: 'http://127.0.0.1:5000/apps?page=' + pagenumber,
+                    url: 'http://api.lime-bootstrap.com/addons?page=' + pagenumber,
+                    //LJE Test
+                    //url: 'http://127.0.0.1:5000/apps?page=' + pagenumber,
                     type: 'get',
                     dataType: 'json',
                     cache: true,
@@ -124,10 +122,8 @@ var viewModel = function () {
                     if (self.activeFilter().text === 'All') {
                         return item.currentpage == self.activepage();
                     }
-                    else if (self.activeFilter().text === 'Latest') {
-                        // if (Object.prototype.toString.call(item.info.versions()[0]) !== '[object Undefined]') {
-                        if (Object.prototype.toString.call(item.info.version_published_at()) !== '[object Undefined]') {
-                            // return moment(item.info.versions()[0].date()).format('YYYY-MM-DD') > moment().subtract(90, 'days').format('YYYY-MM-DD') && (item.info.status() === 'Release' || item.info.status() === 'Beta');
+                    else if (self.activeFilter().text === 'Latest') {                        
+                        if (Object.prototype.toString.call(item.info.version_published_at()) !== '[object Undefined]') {                            
                             return moment(item.info.version_published_at()).format('YYYY-MM-DD') > moment().subtract(30, 'days').format('YYYY-MM-DD');
                         }
                     }
@@ -272,21 +268,14 @@ var appFactory = function (app, currentpage) {
         else {
             var img = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
             self.smallImage = img
-            self.bigImage = img
-            //}
-            //else {
-            //    self.bigImage = ["../assets/img/_default.png"];
-            //    self.smallImage = ["../assets/img/_default.png"];
-            //}
+            self.bigImage = img            
         }
-
-        //}
     });
 
     //})
     if (self.smallImage === "") {
-        self.bigImage = ["http://limebootstrap.lundalogik.com/web/appstore/img/_default.png"];
-        self.smallImage = ["http://limebootstrap.lundalogik.com/web/appstore/img/_default.png"];
+        self.bigImage = ["../img/_default.png"];
+        self.smallImage = ["../img/_default.png"];
     }
 
     self.changeAppInfo = function (app, item) {
@@ -337,10 +326,10 @@ var appFactory = function (app, currentpage) {
     }
 
     self.download = function () {
-        if (self.license()) {
+        if (self.license()) {            
+            location.href = 'http://api.lime-bootstrap.com/addons/' + self.name() + '/download'
             // LJE TEST
-            // location.href = 'http://api.lime-bootstrap.com/apps/' + self.name() + '/download'
-            location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
+            //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
 
         }
         else{
@@ -360,14 +349,18 @@ var appFactory = function (app, currentpage) {
     self.downloadApp = function () {
         if (self.password()!="") {
             $.ajax({                
-                url: 'http://127.0.0.1:5000/login' ,
+                url: 'http://api.lime-bootstrap.com/login' ,
+                //LJE TEST
+                //url: 'http://127.0.0.1:5000/login' ,
                 type: 'post',
                 data: {password:self.password()},
                 dataType: 'json',
                 cache: true,
                 async: false,
                 success: function(response){
-                    if(response=='200'){
+                    if(response=='200'){                        
+                        location.href = 'http://api.lime-bootstrap.com/addons/' + self.displayName() + '/download';    
+                        //LJE TEST
                         location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download';
                
                         self.password('');
@@ -383,20 +376,6 @@ var appFactory = function (app, currentpage) {
                 }
                     
             });
-
-            // if(self.password() ==="LLAB"){
-            //     console.log("downloading app");
-            //     // LJE TEST
-            //     // location.href = 'http://api.lime-bootstrap.com/apps/' + self.name() + '/download'
-            //     location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
-               
-            //     self.password('');
-            //     self.wrongpassword(false);
-            // }
-            // else{
-            //     self.password('');
-            //     self.wrongpassword(true);
-            // }
         }
     }
 
@@ -421,9 +400,6 @@ var appFactory = function (app, currentpage) {
     });
 
     self.githubAddress = function () {
-        //location.href = 'https://github.com/Lundalogik/LimeBootstrapAppStore/tree/master/' + self.name()
-        //TEST
-        //location.href = self.github_issues_link;
         window.open(self.github_issues_link);                
     };
 }
