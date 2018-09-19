@@ -44,7 +44,7 @@
                                 <h4 class="modal-title">
                                     <span data-bind="text:app.appName()"></span>
                                     <span class="download-without-password">
-                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, css:{disabled:(app.license()?true:false)},  visible: !app.runswithlip()">                                        
+                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, css:{disabled:(app.license()?true:false)},  visible: app.showDownload()">                                        
                                             <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: (app.license()? 'Paid': 'Download')"></span>
                                         </button>

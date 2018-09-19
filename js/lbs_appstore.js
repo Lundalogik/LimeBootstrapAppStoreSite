@@ -244,10 +244,11 @@ var appFactory = function (app, currentpage) {
     /**
 	Sets default picture if app images is missing.
 	*/
-    self.runswithlip = ko.observable(false);
+    self.runswithlip = ko.observable(false);    
     if (window.external && window.external.database) {
         self.runswithlip(true);
     }
+
     if (app.images.indexOf(',') > -1) {
         self.images = app.images.split(',');
     }
@@ -256,6 +257,9 @@ var appFactory = function (app, currentpage) {
     }
 
     self.smallImage = "";
+    
+
+
     //$.each(self.images, function (index, image) {
 
     $.each(app.images, function (imageindex, imagedata) {
@@ -308,7 +312,7 @@ var appFactory = function (app, currentpage) {
     self.expandApp = function (app) {
         app.expandedApp(true);
         location.hash = app.displayName()
-        $("#expanded-" + app.name()).modal('show');
+        $("#expanded-" + app.name()).modal('show');        
     };
 
     self.closeApp = function (app) {
@@ -322,6 +326,13 @@ var appFactory = function (app, currentpage) {
     self.enterSearch = function (d, e){
         e.keyCode === 13 && self.downloadApp();
         return true;
+    }
+
+    self.showDownload = function () {
+        if(self.name()=='addon-getaccept')
+            return false;
+        else
+            return true;
     }
 
     self.download = function () {
