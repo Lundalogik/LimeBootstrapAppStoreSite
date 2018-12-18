@@ -1,8 +1,11 @@
 var lbsappstore = {
-    init: function () {        
-        $.getJSON('https://api.lime-bootstrap.com/addons/?page=1', function (data) {
-        // LJE TEST
-        //$.getJSON('http://127.0.0.1:5000/addons?page=1', function (data) {        
+    localhost: false,
+    init: function () {     
+        url = 'https://api.lime-bootstrap.com/addons/?page=1'   
+        if (lbsappstore.localhost) {
+            url = 'http://127.0.0.1:5000/addons?page=1'
+        }
+        $.getJSON(url, function (data) {        
             var vm = new viewModel();
             vm.populateFromRawData(data)
             vm.pages = ko.observableArray();
@@ -42,10 +45,11 @@ var viewModel = function () {
 
     self.loadMoreData = function(pagenumber){
         if (self.loadedpages.indexOf(pagenumber) == -1){
+                url = 'https://api.lime-bootstrap.com/addons/?page=' + pagenumber
+                if (lbsappstore.localhost)
+                    url = 'http://127.0.0.1:5000/apps?page=' + pagenumber
                 $.ajax({
-                    url: 'https://api.lime-bootstrap.com/addons/?page=' + pagenumber,
-                    //LJE Test
-                    //url: 'http://127.0.0.1:5000/apps?page=' + pagenumber,
+                    url: url,
                     type: 'get',
                     dataType: 'json',
                     cache: true,
@@ -337,10 +341,10 @@ var appFactory = function (app, currentpage) {
 
     self.download = function () {
         if (self.license()) {            
-            location.href = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
-            // LJE TEST
-            //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
-
+            url = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
+            if(lbsappstore.localhost)
+                url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
+            location.href = url            
         }
         else{
             $(".download-without-password").hide();
@@ -358,21 +362,23 @@ var appFactory = function (app, currentpage) {
 
     self.downloadApp = function () {
         if (self.password()!="") {
+            url = 'https://api.lime-bootstrap.com/login'
+            if(lbsappstore.localhost)
+                url = 'http://127.0.0.1:5000/login'
             $.ajax({                
-                url: 'https://api.lime-bootstrap.com/login' ,
-                //LJE TEST
-                //url: 'http://127.0.0.1:5000/login' ,
+                url:  url,
                 type: 'post',
                 data: {password:self.password()},
                 dataType: 'json',
                 cache: true,
                 async: false,
                 success: function(response){
-                    if(response=='200'){                        
-                        location.href = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download';    
-                        //LJE TEST
-                        //location.href = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download';
-               
+                    if(response=='200'){
+                        url = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download'
+                        if(lbsappstore.localhost)
+                            url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'                                                    
+                        
+                        location.href = url;                            
                         self.password('');
                         self.wrongpassword(false);
                     }
