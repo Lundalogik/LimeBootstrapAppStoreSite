@@ -109,19 +109,71 @@ color:#FFF;
 
 }
 
-.modal .modal-content{
- -webkit-animation-delay: 0.3s;
- -ms-animation-delay: 0.3s;
- margin-left:15%;
- margin-right:15%;
-}
-
 .modal .carousel .item{
 	height: 200px;
 }
 
-.modal .modal-dialog{
-	width: 80%;
+/* For Extra Small Devices (Phones) */
+@media screen and (max-width: 768px) {
+    .modal .modal-dialog{
+		width: 100%;
+	}
+
+	.modal .modal-content{
+		-webkit-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		margin-left: 0%;
+		margin-right: 0%;
+	}
+}
+
+/* For Small Devices (Tablets) */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .modal .modal-dialog{
+		width: 100%;
+	}
+
+	.modal .modal-content{
+		-webkit-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+}
+
+/* For Medium Devices (Small desktops) */
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+	.app .carousel .item{
+		background-size: contain;
+	}
+	
+	.modal .modal-dialog{
+		width: 100%;
+	}
+
+	.modal .modal-content{
+		-webkit-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		margin-left: auto;
+		margin-right: auto;
+		min-width: 858px;
+		max-width: 900px;
+	}
+}
+
+/* For Large Devices (Large desktops) */
+@media screen and (min-width: 1200px) {
+    .modal .modal-dialog{
+		width: 80%;
+	}
+
+	.modal .modal-content{
+		-webkit-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		margin-left: auto;
+		margin-right: auto;
+		width: 900px;
+	}
 }
 
 .modal .download{
