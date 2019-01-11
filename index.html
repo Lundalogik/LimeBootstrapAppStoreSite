@@ -24,7 +24,15 @@
                     <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-' + app.name()}">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                            <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.smallImage + ') no-repeat center'}" ></div>                                          
+                            <div class="item active"
+                                data-bind="style: {
+                                    'background-image': 'url(' + app.smallImage + ')',
+                                    'background-color': '#F1F6FF',
+                                    'background-position': 'center',
+                                    'background-repeat': 'no-repeat',
+                                    'background-size': 'contain'
+                                }">
+                            </div>                                          
                         </div>
                     </div>
                     <h3 data-bind="text: app.appName"></h3>
@@ -75,7 +83,15 @@
                                 <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-large' + app.name()}">
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">                                        
-                                        <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.bigImage +') no-repeat center'}" ></div>
+                                        <div class="item active"
+                                            data-bind="style: {
+                                                'background-image': 'url(' + app.bigImage +')',
+                                                'background-color': '#F1F6FF',
+                                                'background-position': 'center',
+                                                'background-repeat': 'no-repeat',
+                                                'background-size': 'contain'
+                                            }">
+                                        </div>
                                     </div>
                                 </div>
                                 <br />
