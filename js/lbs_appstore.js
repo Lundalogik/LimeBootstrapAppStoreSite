@@ -1,5 +1,5 @@
 var lbsappstore = {
-    localhost: false,
+    localhost: true,
     init: function () {     
         url = 'https://api.lime-bootstrap.com/addons/?page=1'   
         if (lbsappstore.localhost) {
@@ -130,9 +130,9 @@ var viewModel = function () {
                             return moment(item.info.version_published_at()).format('YYYY-MM-DD') > moment().subtract(30, 'days').format('YYYY-MM-DD');
                         }
                     }
-                    else {
-                        return item.info.status() == (self.activeFilter() ? self.activeFilter().text : '');
-                    }
+                    // else {
+                    //     return item.info.status() == (self.activeFilter() ? self.activeFilter().text : '');
+                    // }
                 }
             }
             
@@ -174,9 +174,10 @@ var viewModel = function () {
     // computed view of avaliable statuses
     self.avaliableStatuses = ko.computed(function () {
         // get the statuses
-        var values = ko.utils.arrayMap(self.apps(), function (item) {
-            return item.info.status();
-        });
+        // var values = ko.utils.arrayMap(self.apps(), function (item) {
+        //     return item.info.status();
+        // });
+        var values = []
         values.push('All');
         values.push('Latest');
         // make them unique
@@ -261,22 +262,21 @@ var appFactory = function (app, currentpage) {
     }
 
     self.smallImage = "";
-    
-
-
-    //$.each(self.images, function (index, image) {
+    if(app.thumbnail != "")
+        self.smallImage = "data:image/png;base64," + app.thumbnail.replace("b'", "").replace("'", "");
 
     $.each(app.images, function (imageindex, imagedata) {
         
         //if (image == imagedata.file_name) {
-        if (imagedata.file_name.indexOf("small") > -1) {
-            self.smallImage = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
-        }
-        else {
+        // if (imagedata.file_name.indexOf("small") > -1) {
+        //     self.smallImage = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
+        // }
+        // else {
             var img = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
-            self.smallImage = img
+            if(self.smallImage=="")
+                self.smallImage = img
             self.bigImage = img            
-        }
+        // }
     });
 
     //})
@@ -301,17 +301,18 @@ var appFactory = function (app, currentpage) {
     self.info = ko.mapping.fromJS(app);
     self.displayName = ko.observable(app.displayName);
     self.license = ko.observable(app.license);
-    self.statusColor = ko.computed(function () {
-        if (self.info.status) {
-            switch (app.status) {
-                case 'Release':
-                    return "label-success"               
-            }
-        }
-    });
+    // self.statusColor = ko.computed(function () {
+    //     if (self.info.status) {
+    //         switch (app.status) {
+    //             case 'Release':
+    //                 return "label-success"               
+    //         }
+    //     }
+    // });
 
     self.github_link = app.github_link;
     self.github_issues_link = app.github_issues_link;
+    self.download_url = app.download_url;
 
     self.expandApp = function (app) {
         app.expandedApp(true);
@@ -333,7 +334,8 @@ var appFactory = function (app, currentpage) {
     }
 
     self.showDownload = function () {
-        if(self.name()=='addon-getaccept')
+        //TODO Ifall det inte finns någon download-länk s åska det vara false
+        if(self.download_url=='')
             return false;
         else
             return true;

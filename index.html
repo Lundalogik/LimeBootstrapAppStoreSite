@@ -27,11 +27,7 @@
                             <div class="item active" data-bind="style:{background:'#F1F6FF url(' + app.smallImage + ') no-repeat center'}" ></div>                                          
                         </div>
                     </div>
-                    <h3 data-bind="text: app.appName"></h3>
-                    <!-- ko if: app.info -->
-                    <span class="label" data-bind="text: (app.license()? 'Paid' :app.info.status()), css: (app.license()?'label-danger':app.statusColor)"></span>
-                    <p class="desc" data-bind="text:app.info.shortDesc"></p>
-                    <!-- /ko -->
+                    <h3 data-bind="text: app.appName"></h3>                    
                 </div>
                 <!--/ Mini app view -->
 
