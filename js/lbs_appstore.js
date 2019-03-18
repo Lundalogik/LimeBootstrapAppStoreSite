@@ -299,6 +299,8 @@ var appFactory = function (app, currentpage) {
     self.readme = marked(app.readme);
     self.expandedApp = ko.observable(false);
     self.info = ko.mapping.fromJS(app);
+    self.tags = ko.observableArray(self.info.tags())
+    //TODO SKa det vara unique name eller display name?
     self.displayName = ko.observable(app.displayName);
     self.license = ko.observable(app.license);
     // self.statusColor = ko.computed(function () {
