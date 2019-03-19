@@ -34,8 +34,13 @@ var viewModel = function () {
     self.searchvalue = ko.observable();
     self.mergeMenu = ko.observable(false);
     self.activepage = ko.observable(1);
-    self.loadedpages = [1];
+    self.loadedpages = [1];    
     // self.hitcounter = ko.observable();
+
+    self.getYear = ko.computed(function (){
+        var dt = new Date();
+        return "\u00A9" + dt.getFullYear() + " Lime Technologies AB";
+    });
 
     self.runsinlime = ko.observable(false);
 
@@ -81,8 +86,7 @@ var viewModel = function () {
 
     // populate VM from JSON data
     self.populateFromRawData = function (rawData) {        
-        var currentpage = rawData._self._current_page; 
-                
+        var currentpage = rawData._self._current_page;                
         //$(rawData.apps).each(function (index, app) {
         $(rawData.addons).each(function (index, app) {
             console.log(app);
@@ -138,12 +142,13 @@ var viewModel = function () {
             
         });
 
+        //Nedan behövs väl ej?
         // sort
-        apps.sort(function (l, r) { return l.name() > r.name() ? 1 : -1 });
+        //apps.sort(function (l, r) { return l.name() > r.name() ? 1 : -1 });
 
-        if (self.searchvalue()) {
+        // if (self.searchvalue()) {
 
-        }
+        // }
 
         // transform into grid
         return self.listToMatrix(apps, 3);
@@ -302,6 +307,7 @@ var appFactory = function (app, currentpage) {
     self.tags = ko.observableArray(self.info.tags())
     //TODO SKa det vara unique name eller display name?
     self.displayName = ko.observable(app.displayName);
+    self.uniqueName = ko.observable(app.unique_name);
     self.license = ko.observable(app.license);
     // self.statusColor = ko.computed(function () {
     //     if (self.info.status) {
@@ -347,7 +353,7 @@ var appFactory = function (app, currentpage) {
         if (self.license()) {            
             url = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
             if(lbsappstore.localhost)
-                url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
+                url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'
             location.href = url            
         }
         else{
@@ -380,7 +386,7 @@ var appFactory = function (app, currentpage) {
                     if(response=='200'){
                         url = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download'
                         if(lbsappstore.localhost)
-                            url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'                                                    
+                            url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'                                                    
                         
                         location.href = url;                            
                         self.password('');
