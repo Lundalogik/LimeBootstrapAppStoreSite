@@ -352,7 +352,7 @@ var appFactory = function (app, currentpage) {
 
     self.download = function () {
         if (self.license()) {            
-            url = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
+            url = 'https://api.lime-bootstrap.com/addons/' + self.uniqueName() + '/download'
             if(lbsappstore.localhost)
                 url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'
             location.href = url            
@@ -385,7 +385,7 @@ var appFactory = function (app, currentpage) {
                 async: false,
                 success: function(response){
                     if(response=='200'){
-                        url = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download'
+                        url = 'https://api.lime-bootstrap.com/addons/' + self.uniqueName() + '/download'
                         if(lbsappstore.localhost)
                             url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'                                                    
                         
@@ -408,7 +408,7 @@ var appFactory = function (app, currentpage) {
 
     self.installappwithlip = function () {
         if (self.name()) {
-            window.external.run('LBSHelper.RunLip', self.displayName());
+            window.external.run('LBSHelper.RunLip', self.uniqueName());
         }
     }
 
