@@ -1,5 +1,5 @@
 var lbsappstore = {
-    localhost: true,
+    localhost: false,
     init: function () {     
         url = 'https://api.lime-bootstrap.com/addons/?page=1'   
         if (lbsappstore.localhost) {
@@ -52,7 +52,7 @@ var viewModel = function () {
         if (self.loadedpages.indexOf(pagenumber) == -1){
                 url = 'https://api.lime-bootstrap.com/addons/?page=' + pagenumber
                 if (lbsappstore.localhost)
-                    url = 'http://127.0.0.1:5000/apps?page=' + pagenumber
+                    url = 'http://127.0.0.1:5000/addons/?page=' + pagenumber
                 $.ajax({
                     url: url,
                     type: 'get',
@@ -99,8 +99,9 @@ var viewModel = function () {
     self.pageFactory = function(pagenumber){
         var page = this;
         page.pagenumber = pagenumber;
+        page.showButton = true
         page.nextpage = function(){
-            self.activepage(this.pagenumber);
+            self.activepage(this.pagenumber);            
         }
         return page;
     }
@@ -429,7 +430,6 @@ var appFactory = function (app, currentpage) {
         window.open(self.github_issues_link);                
     };
 }
-
 
 /**
 Lets get this party on the road
