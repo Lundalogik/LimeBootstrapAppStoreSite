@@ -36,14 +36,13 @@
                     </div>
                     <h3 data-bind="text: app.appName"></h3>
                     <!-- ko if: app.info -->
-                    <span class="label" data-bind="text: (app.license()? 'Paid' :app.info.status()), css: (app.license()?'label-danger':app.statusColor)"></span>
                     <p class="desc" data-bind="text:app.info.shortDesc"></p>
-                    <!-- /ko -->
+                    <!-- /ko -->                    
                 </div>
                 <!--/ Mini app view -->
 
                 <!-- Expanded app view -->
-                <div class="modal" data-backdrop="static" data-bind="attr:{id:'expanded-' + app.name()}, click:app.closeApp">
+                <div class="modal" data-backdrop="static" data-bind="attr:{id:'expanded-' + app.name()}, click:app.closeApp">                    
                     <div class="modal-dialog" data-bind="click: function(){return true}, clickBubble: false">
                         <div class="modal-content" data-bind="css:{'animated fadeIn':app.expandedApp()}">
                             <div class="modal-header">
@@ -51,7 +50,7 @@
                                 <h4 class="modal-title">
                                     <span data-bind="text:app.appName()"></span>
                                     <span class="download-without-password">
-                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, css:{disabled:(app.license()?true:false)},  visible: app.showDownload()">                                        
+                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, visible: app.showDownload()">                                        
                                             <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: (app.license()? 'Paid': 'Download')"></span>
                                         </button>
@@ -59,11 +58,6 @@
                                         <button type="button" class="btn btn-success pull-right download" data-bind="click:app.installappwithlip, visible:  app.runswithlip()">
                                             <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: 'Install'"></span>
-                                        </button>
-                                        
-                                        <button type="button" class="btn btn-default pull-right download" data-bind="click:app.githubAddress ">
-                                            <span class="glyphicon glyphicon-cog"></span>
-                                            Report problem or look at source
                                         </button>
                                     </span>
 
@@ -75,9 +69,7 @@
                                     </div>  
                                 </span>
                             </div>
-                            <div class="modal-body">
-                            
-                                <div class="license-app" data-bind="visible:app.license(), icon:'glyphicon-flag'">This app requires a license. Are you intrested in this application, <a href="http://www.lundalogik.com/about-us/contact-us/find-us/">please contact us!</a></div>
+                            <div class="modal-body">                            
                                 <!-- App images-->
                                 <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-large' + app.name()}">
                                     <!-- Wrapper for slides -->
@@ -94,9 +86,6 @@
                                     </div>
                                 </div>
                                 <br />
-                                <!--<button class="btn btn-default" data-bind="click: app.changeAppInfo" id="modal-about">About</button>
-                                <button class="btn btn-default" data-bind="click: app.changeAppInfo" id="modal-installation">Installation</button>
-                                <button class="btn btn-default" data-bind="click: app.changeAppInfo" id="modal-termsAndConditions">Terms and Conditions</button>-->
                                 <div data-bind="html:app.readme"></div>
                             </div>
 
@@ -136,11 +125,10 @@
                             <!-- /ko -->
                         </li>
                         
-                        <li><a href="https://www.lime-bootstrap.com">Lime Bootstrap Manual</a></li>                        
                         <li data-bind="visible:mergeMenu()"> <div class="input-group menu-appstore-input-group">
                                 <input type="text" class="form-control navbar-appstore-input" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" id="Button1" type="button" data-bind="icon:'glyphicon glyphicon-search'"> </button>
+                                    <button class="btn btn-default" id="Button1" data-bind="icon:'glyphicon glyphicon-search'" /> 
                                 </span>
                             </div>
                         </li>
@@ -177,10 +165,7 @@
                         </li>
                         <li role="presentation" id="navbar-appstore-searchbar">
                             <div class="input-group navbar-appstore-input-group">
-                                <input type="text" class="form-control navbar-appstore-input" id="navbar-search" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="navbar-appstore-search-button" type="button" data-bind="icon:'glyphicon glyphicon-search'"> </button>
-                                </span>
+                                <input type="text" class="form-control navbar-appstore-input" id="navbar-search" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">                                
                             </div>
                         </li>
 
@@ -214,7 +199,7 @@
             <div class="col-md-12">
                 <div class="appstore-footer">
                     <ul class="appstore-footer-list">
-                        <li><a href="https://lime.tech/" target=_blank>&copy;2018 Lime Technologies AB</a></li>                        
+                        <li><a href="https://lime.tech/" target="_blank" data-bind="text: $root.getYear();"></a></li>                        
                     </ul>
                 </div>
             </div>

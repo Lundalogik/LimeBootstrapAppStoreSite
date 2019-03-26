@@ -34,8 +34,13 @@ var viewModel = function () {
     self.searchvalue = ko.observable();
     self.mergeMenu = ko.observable(false);
     self.activepage = ko.observable(1);
-    self.loadedpages = [1];
+    self.loadedpages = [1];    
     // self.hitcounter = ko.observable();
+
+    self.getYear = ko.computed(function (){
+        var dt = new Date();
+        return "\u00A9" + dt.getFullYear() + " Lime Technologies AB";
+    });
 
     self.runsinlime = ko.observable(false);
 
@@ -47,7 +52,7 @@ var viewModel = function () {
         if (self.loadedpages.indexOf(pagenumber) == -1){
                 url = 'https://api.lime-bootstrap.com/addons/?page=' + pagenumber
                 if (lbsappstore.localhost)
-                    url = 'http://127.0.0.1:5000/apps?page=' + pagenumber
+                    url = 'http://127.0.0.1:5000/addons/?page=' + pagenumber
                 $.ajax({
                     url: url,
                     type: 'get',
@@ -81,8 +86,7 @@ var viewModel = function () {
 
     // populate VM from JSON data
     self.populateFromRawData = function (rawData) {        
-        var currentpage = rawData._self._current_page; 
-                
+        var currentpage = rawData._self._current_page;                
         //$(rawData.apps).each(function (index, app) {
         $(rawData.addons).each(function (index, app) {
             console.log(app);
@@ -95,8 +99,9 @@ var viewModel = function () {
     self.pageFactory = function(pagenumber){
         var page = this;
         page.pagenumber = pagenumber;
+        page.showButton = true
         page.nextpage = function(){
-            self.activepage(this.pagenumber);
+            self.activepage(this.pagenumber);            
         }
         return page;
     }
@@ -130,20 +135,21 @@ var viewModel = function () {
                             return moment(item.info.version_published_at()).format('YYYY-MM-DD') > moment().subtract(30, 'days').format('YYYY-MM-DD');
                         }
                     }
-                    else {
-                        return item.info.status() == (self.activeFilter() ? self.activeFilter().text : '');
-                    }
+                    // else {
+                    //     return item.info.status() == (self.activeFilter() ? self.activeFilter().text : '');
+                    // }
                 }
             }
             
         });
 
+        //Nedan behövs väl ej?
         // sort
-        apps.sort(function (l, r) { return l.name() > r.name() ? 1 : -1 });
+        //apps.sort(function (l, r) { return l.name() > r.name() ? 1 : -1 });
 
-        if (self.searchvalue()) {
+        // if (self.searchvalue()) {
 
-        }
+        // }
 
         // transform into grid
         return self.listToMatrix(apps, 3);
@@ -174,9 +180,10 @@ var viewModel = function () {
     // computed view of avaliable statuses
     self.avaliableStatuses = ko.computed(function () {
         // get the statuses
-        var values = ko.utils.arrayMap(self.apps(), function (item) {
-            return item.info.status();
-        });
+        // var values = ko.utils.arrayMap(self.apps(), function (item) {
+        //     return item.info.status();
+        // });
+        var values = []
         values.push('All');
         values.push('Latest');
         // make them unique
@@ -261,22 +268,21 @@ var appFactory = function (app, currentpage) {
     }
 
     self.smallImage = "";
-    
-
-
-    //$.each(self.images, function (index, image) {
+    if(app.thumbnail != "")
+        self.smallImage = "data:image/png;base64," + app.thumbnail.replace("b'", "").replace("'", "");
 
     $.each(app.images, function (imageindex, imagedata) {
         
         //if (image == imagedata.file_name) {
-        if (imagedata.file_name.indexOf("small") > -1) {
-            self.smallImage = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
-        }
-        else {
+        // if (imagedata.file_name.indexOf("small") > -1) {
+        //     self.smallImage = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
+        // }
+        // else {
             var img = "data:image/" + imagedata.file_type + ";base64," + imagedata.blob.replace("b'", "").replace("'", "");
-            self.smallImage = img
+            if(self.smallImage=="")
+                self.smallImage = img
             self.bigImage = img            
-        }
+        // }
     });
 
     //})
@@ -299,19 +305,23 @@ var appFactory = function (app, currentpage) {
     self.readme = marked(app.readme);
     self.expandedApp = ko.observable(false);
     self.info = ko.mapping.fromJS(app);
+    self.tags = ko.observableArray(self.info.tags())
+    //TODO SKa det vara unique name eller display name?
     self.displayName = ko.observable(app.displayName);
+    self.uniqueName = ko.observable(app.unique_name);
     self.license = ko.observable(app.license);
-    self.statusColor = ko.computed(function () {
-        if (self.info.status) {
-            switch (app.status) {
-                case 'Release':
-                    return "label-success"               
-            }
-        }
-    });
+    // self.statusColor = ko.computed(function () {
+    //     if (self.info.status) {
+    //         switch (app.status) {
+    //             case 'Release':
+    //                 return "label-success"               
+    //         }
+    //     }
+    // });
 
     self.github_link = app.github_link;
     self.github_issues_link = app.github_issues_link;
+    self.download_url = app.download_url;
 
     self.expandApp = function (app) {
         app.expandedApp(true);
@@ -333,7 +343,8 @@ var appFactory = function (app, currentpage) {
     }
 
     self.showDownload = function () {
-        if(self.name()=='addon-getaccept')
+        //TODO Ifall det inte finns någon download-länk s åska det vara false
+        if(self.download_url=='')
             return false;
         else
             return true;
@@ -343,7 +354,7 @@ var appFactory = function (app, currentpage) {
         if (self.license()) {            
             url = 'https://api.lime-bootstrap.com/addons/' + self.name() + '/download'
             if(lbsappstore.localhost)
-                url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'
+                url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'
             location.href = url            
         }
         else{
@@ -376,7 +387,7 @@ var appFactory = function (app, currentpage) {
                     if(response=='200'){
                         url = 'https://api.lime-bootstrap.com/addons/' + self.displayName() + '/download'
                         if(lbsappstore.localhost)
-                            url = 'http://127.0.0.1:5000/addons/' + self.displayName() + '/download'                                                    
+                            url = 'http://127.0.0.1:5000/addons/' + self.uniqueName() + '/download'                                                    
                         
                         location.href = url;                            
                         self.password('');
@@ -419,7 +430,6 @@ var appFactory = function (app, currentpage) {
         window.open(self.github_issues_link);                
     };
 }
-
 
 /**
 Lets get this party on the road
