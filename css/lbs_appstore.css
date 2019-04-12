@@ -29,14 +29,14 @@ h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .jumbotron{
-	background-color: #00b3a7;
+	background-color: #00C8AA;
 	border-color: transparent;
 color:#FFF;
 
 }
 
 .navbar-default {
-	background-color: #00b3a7;
+	background-color: #00C8AA;
 	border-color: transparent;
 }
 
@@ -304,5 +304,5 @@ code{
 }
 
 .btn-success {
-	background-color: #00b3a7;
+	background-color: #00C8AA;
 }
