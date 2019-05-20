@@ -10,6 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="css/monokai_sublime.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/ico" href="./img/favicon.ico" />
     <script type="text/html" id="apps-template">
         <h3 id="filter-text-appstore" data-bind="text: activeFilter().text"></h3>
         <!-- ko foreach: { data: appsGrid, as: 'approw' } -->
@@ -108,73 +109,47 @@
     <header>
         <nav class="navbar navbar-default navbar-fixed-top " role="navigation" data-bind="visible: !runsinlime()">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <img class="crmlogo" src="../img/lime_crm_logotype_icon_empty_RGB.png" />
-                </div>
-                <div class="navbar-collapse collapse">                    
-                    <ul class="nav navbar-nav navbar-right">                                                
-                        <li data-bind="visible:mergeMenu,foreach: avaliableStatuses">
-                            <!-- ko if: text == 'All' -->
-                            <a class="" id="A1" data-bind="click: $parent.selectStatusFilter">Show all</a>
-                            <!-- /ko -->
-                        </li>
-                        <li data-bind="visible:mergeMenu, foreach: avaliableStatuses">
-                            <!-- ko if: text == 'Latest' -->
-                            <a id="A2" data-bind="click: $parent.selectStatusFilter">Latest releases</a>
-                            <!-- /ko -->
-                        </li>
-                        
-                        <li data-bind="visible:mergeMenu()"> <div class="input-group menu-appstore-input-group">
-                                <input type="text" class="form-control navbar-appstore-input" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="Button1" data-bind="icon:'glyphicon glyphicon-search'" /> 
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-            </div>
-        </nav>
-
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Lime Store</h1>
-            </div>
-        </div>
-    </header>
-    <div class="appstore-menu">
-        <div class="container">
-            <div class="navbar-appstore">
-
-                <div class="row">
-                    <!-- <div class="col-md-12" style="background-color:green">   -->
-                    <ul class="nav nav-tabs nav-appstore">                       
-                        <li role="presentation" data-bind="foreach: avaliableStatuses">
-                            <!-- ko if: text == 'All' -->
+                <div class="row"> 
+                    <ul class="nav nav-tabs nav-appstore">      
+                        <li>
+                            <a href="https://lime-crm.se/" target="blind"><img class="crmlogo" src="../img/lime_crm_icon_RGB.png" /></a>
+                        </li>             
+                        <li id="hide1" role="presentation" data-bind="foreach: avaliableStatuses">
                             <a class="active-appstore" id="All" data-bind="click: $parent.selectStatusFilter">Show all</a>
-                            <!-- /ko -->
+                         
                         </li>
-                        <li role="presentation" data-bind="foreach: avaliableStatuses">
-                            <!-- ko if: text == 'Latest' -->
+                        <li id="hide2" role="presentation" data-bind="foreach: avaliableStatuses">
                             <a id="New" data-bind="click: $parent.selectStatusFilter">Latest releases</a>
-                            <!-- /ko -->
+                             
                         </li>
+                        <li class="float-right">
+                                <a class="btn-top btn-turq btn-nav btn-tryout" href="https://lime-crm.se/kontakta-oss/" id="try-button-nav">Contact us</a>
+                            </li>
                         <li role="presentation" id="navbar-appstore-searchbar">
                             <div class="input-group navbar-appstore-input-group">
                                 <input type="text" class="form-control navbar-appstore-input" id="navbar-search" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">                                
                             </div>
                         </li>
 
-                    </ul>
-                    <!-- </div> -->
+                     
+                     </ul>
                 </div>
             </div>
-        </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+<div class="row">
+    <div class="col-sm-12">
+            <h1>Lime Store</h1>
+            <p class="text-white">This is where the action is!</p>
     </div>
+</div>
+            </div>
+        </div>
+    </header>
+    
 
 
     <div class="container" data-bind="template: { name: 'apps-template', afterRender: postProcessingLogic}">

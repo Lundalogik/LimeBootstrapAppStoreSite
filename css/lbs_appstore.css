@@ -10,39 +10,77 @@
     src: url('../fonts/galano_grotesque_bold.ttf');
 }
 
+@font-face 
+{
+    font-family: galano_grotesque_light;
+    src: url('../fonts/galano_grotesque_light.woff');
+}
+
 body{
 	background-color: #f2f2f2;
 	font-family: 'galano_grotesque';
 	font-size: 15px;
-	font-color: #575756;
+	color: #505050;
 }
 
 h1, .h1 {
-	font-family: 'galano_grotesque';
-	font-weight: 100;
-	font-size: 20px;
+	font-family: 'galano_grotesque_bold';
+	font-weight: 700;
+	font-size: 5.6 rem;
 }
 
 h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6 {
-	font-family: 'galano_grotesque';
-	font-weight: 100;
+	font-family: 'galano_grotesque_light';
+		font-weight: 300;
+		letter-spacing: -1px;
+		line-height: 4.1rem;
+		color: #505050;
 }
 
-.jumbotron{
-	background-color: #00C8AA;
-	border-color: transparent;
-color:#FFF;
+a { 
+	color: #00b3a7;
+}
 
+a:hover, a:focus {
+	color: #008077;
+}
+
+.jumbotron {
+  background: linear-gradient(120deg, rgba(0, 166, 156, 1) 25%, rgba(0, 166, 156, 0.75) 60%) !important;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-color: transparent;
+
+  color:#FFF;
+  text-align: center;
+}
+
+@media(max-width:767px){
+	.jumbotron {
+	padding-top: 150px;
+	}
+
+	p {
+		font-size: 16px; 
+	}
+}
+@media(min-width:768px){
+	.jumbotron {
+	padding-top: 120px;
+	}
 }
 
 .navbar-default {
-	background-color: #00C8AA;
-	border-color: transparent;
+  background: #FFF;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-color: transparent;
 }
 
 .navbar-default .navbar-brand{
 	color: white;
-	padding: 3px 15px 0px 15px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -54,9 +92,9 @@ color:#FFF;
     border-bottom-color:#fff;
 }
 .crmlogo {
-    width:40px;
-    margin-left:10px;
-    margin-bottom: 22px;
+    width:50px;
+	margin-left:10px;
+	margin-bottom: 10px;
 }
 .app{
 	
@@ -161,6 +199,13 @@ color:#FFF;
 	}
 }
 
+#hide1 a:nth-child(2){
+	display: none;
+}
+#hide2 a:nth-child(1){
+	display: none;
+}
+
 /* For Large Devices (Large desktops) */
 @media screen and (min-width: 1200px) {
     .modal .modal-dialog{
@@ -218,26 +263,55 @@ code{
 	
 }
 #navbar-appstore-search-button{
-	color: #2A6496;
+	color: #00b3a7;
 }
 #navbar-appstore-searchbar{
-	float: right;		
+	float: right;
+	margin-top: 3px;	
+	padding-top: 30px;	
 }
 .navbar-appstore{
 	background-color: #fff; 
 	padding: 5px 15px 5px 35px;
 	margin-right: 10px;
-	margin-left: 10px;	
+	margin-left: 20px;	
 }
 .nav-tabs{
 	border: none;
 }
-.jumbotron{
-	margin-bottom: 0px;
-}
+
 .nav-tabs>li>a{
-	border-radius: 0;
+	border-radius: 3px;
+	margin-top: 30px; 
 }
+
+.btn-top {
+	font-size: 16px;
+	padding: 1.5rem 3rem;
+	float: right;
+}
+
+ul li.float-right {
+	float: right;
+}
+
+.btn-nav {
+	color: #FFF;
+	font-size: 14px;
+	margin: 5px 0 15px 15px;
+	padding: 8px 16px;
+	
+}
+
+.btn-turq {
+	background-color: #00b3a7;
+	color: #FFF;
+	transition: color 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+
+
+
 .active-appstore{
 	background-color: #f2f2f2;
 }
@@ -261,10 +335,10 @@ code{
 .appstore-footer-list li{
     display:inline;  
     padding-left: 20px;  
-    color:#428bca
+    color:#008077;
 }
 .appstore-footer-list > li:hover > a {
-    color:#000;   
+    color:#505050;   
     text-decoration:none; 
 }
 .appstore-menu {
@@ -304,5 +378,21 @@ code{
 }
 
 .btn-success {
-	background-color: #00C8AA;
+	background-color: #00b3a7;
 }
+
+.btn-success:hover {
+	background-color: #008077;
+}
+
+
+@media(max-width:767px){
+	padding-top: 150px;
+
+}
+
+@media(min-width:768px){
+	padding-top: 120px;
+}
+@media(min-width:992px){}
+@media(min-width:1200px){}
