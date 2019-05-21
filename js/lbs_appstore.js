@@ -326,8 +326,18 @@ var appFactory = function (app, currentpage) {
     self.expandApp = function (app) {
         app.expandedApp(true);
         location.hash = app.displayName()
-        $("#expanded-" + app.name()).modal('show');        
+        $("#expanded-" + app.name()).modal('show');
+
+        document.addEventListener('keydown', self.escapeModal)
     };
+
+self.escapeModal = function(event) {
+    if(event.key === "Escape"){
+        console.log("Esc")
+    }
+
+}
+
 
     self.closeApp = function (app) {
         app.expandedApp(false);
@@ -335,6 +345,7 @@ var appFactory = function (app, currentpage) {
         $("#expanded-" + app.name()).modal('hide');
         $(".download-without-password").show();
         $(".download-with-password").hide();
+        document.removeEventListener('keydown', self.escapeModal)
         
     };
     self.enterSearch = function (d, e){

@@ -1,63 +1,98 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Lime Store</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lbs_appstore.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-    <link href="css/monokai_sublime.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/ico" href="./img/favicon.ico" />
-    <script type="text/html" id="apps-template">
-        <h3 id="filter-text-appstore" data-bind="text: activeFilter().text"></h3>
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="css/lbs_appstore.css"
+          rel="stylesheet">
+    <link href="css/animate.min.css"
+          rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700'
+          rel='stylesheet'
+          type='text/css'>
+    <link href="css/monokai_sublime.css"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon"
+          type="image/ico"
+          href="./img/favicon.ico" />
+    <script type="text/html"
+            id="apps-template">
+        <h3 id="filter-text-appstore"
+            data-bind="text: activeFilter().text"></h3>
+
         <!-- ko foreach: { data: appsGrid, as: 'approw' } -->
+
+
+
         <div class="row">
             <!-- ko foreach:{ data:approw, as: 'app'} -->
             <!-- ko if: app.name -->
             <!-- An app placeholder -->
             <div class="col-md-4">
                 <!-- Mini app view -->
-                <div class="app" data-bind=" click:app.expandApp, css:{'animated fadeOut':app.expandedApp()}">
+                <div class="app"
+                     data-bind=" click:app.expandApp, css:{'animated fadeOut':app.expandedApp()}">
                     <!-- App images-->
-                    <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-' + app.name()}">
+                    <div class="carousel slide"
+                         data-ride="carousel"
+                         data-bind="attr:{id:'carousel-' + app.name()}">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active"
-                                data-bind="style: {
+                                 data-bind="style: {
                                     'background-image': 'url(' + app.smallImage + ')',
                                     'background-color': '#F1F6FF',
                                     'background-position': 'center',
                                     'background-repeat': 'no-repeat'
                                 }">
-                            </div>                                          
+                            </div>
                         </div>
                     </div>
                     <h3 data-bind="text: app.appName"></h3>
                     <!-- ko if: app.info -->
-                    <p class="desc" data-bind="text:app.info.shortDesc"></p>
-                    <!-- /ko -->                    
+                    <p class="desc"
+                       data-bind="text:app.info.shortDesc"></p>
+                    <!-- /ko -->
                 </div>
                 <!--/ Mini app view -->
 
                 <!-- Expanded app view -->
-                <div class="modal" data-backdrop="static" data-bind="attr:{id:'expanded-' + app.name()}, click:app.closeApp">                    
-                    <div class="modal-dialog" data-bind="click: function(){return true}, clickBubble: false">
-                        <div class="modal-content" data-bind="css:{'animated fadeIn':app.expandedApp()}">
+                <div class="modal"
+                     data-backdrop="static"
+                     data-bind="attr:{id:'expanded-' + app.name()}, click:app.closeApp">
+                    <div class="modal-dialog"
+                         data-bind="click: function(){return true}, clickBubble: false">
+                        <div class="modal-content"
+                             data-bind="css:{'animated fadeIn':app.expandedApp()}">
                             <div class="modal-header">
-                                <button type="button" class="close" data-bind="click:app.closeApp" aria-hidden="true">&times;</button>
+                                <button type="button"
+                                        class="close"
+                                        data-bind="click:app.closeApp"
+                                        aria-hidden="true">&times;</button>
                                 <h4 class="modal-title">
                                     <span data-bind="text:app.appName()"></span>
                                     <span class="download-without-password">
-                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.download, visible: app.showDownload()">                                        
-                                            <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
+                                        <button type="button"
+                                                class="btn btn-success pull-right download"
+                                                data-bind="click:app.download, visible: app.showDownload()">
+                                            <span
+                                                  data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: (app.license()? 'Paid': 'Download')"></span>
                                         </button>
-                                        
-                                        <button type="button" class="btn btn-success pull-right download" data-bind="click:app.installappwithlip, visible:  app.runswithlip()">
-                                            <span data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
+
+                                        <button type="button"
+                                                class="btn btn-success pull-right download"
+                                                data-bind="click:app.installappwithlip, visible:  app.runswithlip()">
+                                            <span
+                                                  data-bind="icon:(app.license()? 'glyphicon-usd' :'glyphicon-cloud-download')"></span>
                                             <span data-bind="text: 'Install'"></span>
                                         </button>
                                     </span>
@@ -65,18 +100,24 @@
                                 </h4>
                                 <span class="download-with-password">
                                     <div class="input-group">
-                                      <input id="passwordinput" class="form-control" type="password" data-bind="value:app.password, valueUpdate:'afterkeydown', event{keypress: enterSearch}, attr:{ placeholder: (app.wrongpassword()? 'Wrong password':'Password')}">
-                                      <span class="input-group-addon" data-bind="text:'Download', click: app.downloadApp"></span>
-                                    </div>  
+                                        <input id="passwordinput"
+                                               class="form-control"
+                                               type="password"
+                                               data-bind="value:app.password, valueUpdate:'afterkeydown', event{keypress: enterSearch}, attr:{ placeholder: (app.wrongpassword()? 'Wrong password':'Password')}">
+                                        <span class="input-group-addon"
+                                              data-bind="text:'Download', click: app.downloadApp"></span>
+                                    </div>
                                 </span>
                             </div>
-                            <div class="modal-body">                            
+                            <div class="modal-body">
                                 <!-- App images-->
-                                <div class="carousel slide" data-ride="carousel" data-bind="attr:{id:'carousel-large' + app.name()}">
+                                <div class="carousel slide"
+                                     data-ride="carousel"
+                                     data-bind="attr:{id:'carousel-large' + app.name()}">
                                     <!-- Wrapper for slides -->
-                                    <div class="carousel-inner">                                        
+                                    <div class="carousel-inner">
                                         <div class="item active"
-                                            data-bind="style: {
+                                             data-bind="style: {
                                                 'background-image': 'url(' + app.bigImage +')',
                                                 'background-color': '#F1F6FF',
                                                 'background-position': 'center',
@@ -105,55 +146,170 @@
     </script>
 
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-default navbar-fixed-top " role="navigation" data-bind="visible: !runsinlime()">
+
+
+        <!-- maggan -->
+        <nav class="navbar navbar-fixed-top navbar-default"
+             role="navigation"
+             data-bind="visible: !runsinlime()">
             <div class="container">
+                <div class="row nav-spacing">
+                    <div class="col-sm-12">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button"
+                                    class="navbar-toggle"
+                                    data-toggle="collapse"
+                                    data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="/"
+                               target="blind">
+                                <img class="crmlogo"
+                                     src="../img/lime_crm_icon_RGB.png" /></a>
+                        </div>
 
-                <div class="row"> 
-                    <ul class="nav nav-tabs nav-appstore">      
-                        <li>
-                            <a href="https://lime-crm.se/" target="blind"><img class="crmlogo" src="../img/lime_crm_icon_RGB.png" /></a>
-                        </li>             
-                        <li id="hide1" role="presentation" data-bind="foreach: avaliableStatuses">
-                            <a class="active-appstore" id="All" data-bind="click: $parent.selectStatusFilter">Show all</a>
-                         
-                        </li>
-                        <li id="hide2" role="presentation" data-bind="foreach: avaliableStatuses">
-                            <a id="New" data-bind="click: $parent.selectStatusFilter">Latest releases</a>
-                             
-                        </li>
-                        <li class="float-right">
-                                <a class="btn-top btn-turq btn-nav btn-tryout" href="https://lime-crm.se/kontakta-oss/" id="try-button-nav">Contact us</a>
-                            </li>
-                        <li role="presentation" id="navbar-appstore-searchbar">
-                            <div class="input-group navbar-appstore-input-group">
-                                <input type="text" class="form-control navbar-appstore-input" id="navbar-search" placeholder="Search" data-bind="value:searchvalue, valueUpdate:'afterkeydown'">                                
-                            </div>
-                        </li>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav">
 
-                     
-                     </ul>
+                                <li id="hide1"
+                                    role="presentation"
+                                    data-bind="foreach: avaliableStatuses">
+                                    <a class="filter-button"
+                                       id="All"
+                                       data-bind="click: $parent.selectStatusFilter">Show all</a>
+
+                                </li>
+                                <li id="hide2"
+                                    role="presentation"
+                                    data-bind="foreach: avaliableStatuses">
+                                    <a class="filter-button"
+                                       id="New"
+                                       data-bind="click: $parent.selectStatusFilter">Latest releases</a>
+
+                                </li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <form class="navbar-form navbar-left"
+                                      role="search">
+                                    <div class="form-group">
+                                        <input type="text"
+                                               class="form-control form-control navbar-appstore-input"
+                                               placeholder="Search"
+                                               id="navbar-search"
+                                               placeholder="Search"
+                                               data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
+                                    </div>
+
+                                </form>
+                                <a class="btn-top btn-turq btn-nav btn-tryout"
+                                   href="https://lime-crm.se/kontakta-oss/"
+                                   id="try-button-nav">Contact us</a>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div>
                 </div>
             </div>
         </nav>
 
+        <!-- 
+        <nav class="navbar navbar-fixed-top navbar-default"
+             role="navigation"
+             data-bind="visible: !runsinlime()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="navbar-header">
+                            <button type="button"
+                                    class="navbar-toggle"
+                                    data-toggle="collapse"
+                                    data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="https://lime-crm.se/"
+                               target="blind">
+                                <img class="crmlogo"
+                                     src="../img/lime_crm_icon_RGB.png" /></a>
+                        </div>
+
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav">
+
+
+                                <li id="hide1"
+                                    role="presentation"
+                                    data-bind="foreach: avaliableStatuses">
+                                    <a class="active-appstore"
+                                       id="All"
+                                       data-bind="click: $parent.selectStatusFilter">Show all</a>
+
+                                </li>
+                                <li id="hide2"
+                                    role="presentation"
+                                    data-bind="foreach: avaliableStatuses">
+                                    <a id="New"
+                                       data-bind="click: $parent.selectStatusFilter">Latest releases</a>
+
+                                </li>
+                                <li class="float-right">
+                                    <a class="btn-top btn-turq btn-nav btn-tryout"
+                                       href="https://lime-crm.se/kontakta-oss/"
+                                       id="try-button-nav">Contact us</a>
+                                </li>
+
+                                <form class="navbar-form navbar-left"
+                                      role="search">
+                                    <div class="form-group">
+                                        <input type="text"
+                                               class="form-control navbar-appstore-input"
+                                               id="navbar-search"
+                                               placeholder="Search"
+                                               data-bind="value:searchvalue, valueUpdate:'afterkeydown'">
+                                    </div>
+                                </form>
+
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav> -->
+
+
+
+        <!-- maggan -->
+
         <div class="jumbotron">
             <div class="container">
-<div class="row">
-    <div class="col-sm-12">
-            <h1>Lime Store</h1>
-            <p class="text-white">This is where the action is!</p>
-    </div>
-</div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Lime Store</h1>
+                        <p class="text-white">This is where the action is!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-    
 
 
-    <div class="container" data-bind="template: { name: 'apps-template', afterRender: postProcessingLogic}">
-        <div class="row" id="loader">
+
+    <div class="container"
+         data-bind="template: { name: 'apps-template', afterRender: postProcessingLogic}">
+        <div class="row"
+             id="loader">
             <div class="col-md-3 col-md-offset-5">
                 <img src="img/ajax-loader.gif">
             </div>
@@ -161,20 +317,26 @@
     </div>
 
     <!-- PAGING -->
-    <div class="pagegroup" data-bind="visible: activeFilter().text === 'All'">
-    <!-- ko if: pages().length > 1 -->
-    <!-- ko foreach:{ data:pages, as: 'page'} -->
-        <button class="" data-bind="text: page.pagenumber, click: page.nextpage, visible: page.showButton, attr:{'class':($root.activepage() === pagenumber ? 'btn btn-success':'btn btn-default') } "></button>
-    <!-- /ko -->
-    <!-- /ko -->
+    <div class="pagegroup"
+         data-bind="visible: activeFilter().text === 'All'">
+
+        <!-- ko if: pages().length > 1 -->
+        <!-- ko foreach:{ data:pages, as: 'page'} -->
+        <button class=""
+                data-bind="text: page.pagenumber, click: page.nextpage, visible: page.showButton, attr:{'class':($root.activepage() === pagenumber ? 'btn btn-success':'btn btn-default') } "></button>
+        <!-- /ko -->
+        <!-- /ko -->
     </div>
 
-    <div class="container" data-bind="visible: !runsinlime()">
+    <div class="container"
+         data-bind="visible: !runsinlime()">
         <div class="row">
             <div class="col-md-12">
                 <div class="appstore-footer">
                     <ul class="appstore-footer-list">
-                        <li><a href="https://lime.tech/" target="_blank" data-bind="text: $root.getYear();"></a></li>                        
+                        <li><a href="https://lime.tech/"
+                               target="_blank"
+                               data-bind="text: $root.getYear();"></a></li>
                     </ul>
                 </div>
             </div>
@@ -182,15 +344,24 @@
     </div>
 
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/knockout-3.0.0.js"></script>
-    <script type="text/javascript" src="js/knockout.mapping-latest.js"></script>
-    <script type="text/javascript" src="js/highlight.pack.js"></script>
-    <script type="text/javascript" src="js/lbs_appstore.js"></script>
-    <script type="text/javascript" src="js/marked.js"></script>
-    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript"
+            src="js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="js/knockout-3.0.0.js"></script>
+    <script type="text/javascript"
+            src="js/knockout.mapping-latest.js"></script>
+    <script type="text/javascript"
+            src="js/highlight.pack.js"></script>
+    <script type="text/javascript"
+            src="js/lbs_appstore.js"></script>
+    <script type="text/javascript"
+            src="js/marked.js"></script>
+    <script type="text/javascript"
+            src="js/moment.js"></script>
 
 
 </body>
+
 </html>
