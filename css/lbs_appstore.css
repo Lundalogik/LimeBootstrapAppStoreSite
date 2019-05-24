@@ -59,6 +59,10 @@ a:hover, a:focus {
   text-align: center;
 }
 
+.text-white {
+	font-size: 1.4rem;
+}
+
 @media(max-width:767px){
 	.jumbotron {
 	padding-top: 100px;
