@@ -434,12 +434,20 @@ ul li.float-right {
 
 .btn-success {
 	background-color: #00b3a7;
+	border-color: #008077;
 }
 
 .btn-success:hover {
 	background-color: #008077;
 }
 
+.btn-success:active {
+	background-color: #008077;
+}
+
+.btn-success:focus {
+	background-color: #008077;
+}
 
 @media(max-width:767px){
 }
