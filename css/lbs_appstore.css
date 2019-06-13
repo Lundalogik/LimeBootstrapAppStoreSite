@@ -115,7 +115,7 @@ li.logo-wrapper a{
 .app{
 	
 	background-color: #FFF;
-	height: 350px;
+	height: 430px;
 	margin: 10px;
 	padding: 10px;
 	cursor: pointer;
@@ -142,7 +142,7 @@ li.logo-wrapper a{
 
 .app .carousel .item{
 	height: 200px;
-	background-color: #F1F6FF;
+	background-color: #fff;
 }
 
  .carousel .carousel-indicators {
@@ -152,7 +152,7 @@ li.logo-wrapper a{
 .app .desc{
 	margin-top: 5px;
 	overflow: hidden;
-	height: 40px;
+	height: 90px;
 }
 
 .carousel .carousel-indicators li {
